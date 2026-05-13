@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "publish:versions": "yarn lerna version",
+    "publish:versions:sh": "sh ./scripts/release.sh",
     "publish:versions:no-push": "yarn publish:versions --no-push"
   },
   "devDependencies": {
