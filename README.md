@@ -1,5 +1,7 @@
 # Lerna Getting Started Example
 
+https://github.com/lerna/lerna/tree/main/libs/commands/version#--conventional-commits
+
 This repo is a small example of using Lerna 5+.
 
 Watch this [10-minute walkthrough](https://youtu.be/1oxFYphTS4Y) to see how new versions of Lerna work.
