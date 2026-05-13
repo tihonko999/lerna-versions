@@ -7,7 +7,8 @@
       "conventionalCommits": true,
       "push": true,
       "yes": true,
-      "message": "chore: publish versions"
+      "message": "chore: publish versions",
+      "allowBranch": "main"
     }
   }
 }

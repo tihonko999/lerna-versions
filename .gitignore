@@ -31,3 +31,4 @@ __diff_output__
 .nx/*
 
 .yarn/install-state.gz
+.tmp/*

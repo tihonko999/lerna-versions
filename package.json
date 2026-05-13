@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "publish:versions": "yarn lerna version",
+    "publish:versions": "yarn lerna version --conventional-graduate",
     "publish:versions:no-push": "yarn publish:versions --no-push"
   },
   "devDependencies": {
