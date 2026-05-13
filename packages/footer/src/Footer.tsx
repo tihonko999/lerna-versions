@@ -1,5 +1,5 @@
 import React from 'react';
 
 export function Footer() {
-  return <footer>Footer 14</footer>;
+  return <footer>Footer 15</footer>;
 }
