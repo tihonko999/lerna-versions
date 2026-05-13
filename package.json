@@ -4,10 +4,12 @@
   "workspaces": [
     "packages/*"
   ],
-  "devDependencies": {
-    "lerna": "^7.1.5"
+  "scripts": {
+    "publish:versions": "yarn lerna version",
+    "publish:versions:no-push": "yarn publish:versions --no-push"
   },
-  "volta": {
-    "node": "18.17.1"
+  "devDependencies": {
+    "lerna": "^9.0.7",
+    "prettier": "^3.8.0"
   }
 }
