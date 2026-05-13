@@ -9,7 +9,6 @@
       "includeMergedTags": true,
       "push": true,
       "yes": true,
-      "message": "chore: publish versions",
       "allowBranch": "main"
     }
   }
