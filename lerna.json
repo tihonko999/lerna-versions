@@ -5,6 +5,8 @@
   "command": {
     "version": {
       "conventionalCommits": true,
+      "conventionalGraduate": true,
+      "includeMergedTags": true,
       "push": true,
       "yes": true,
       "message": "chore: publish versions",
