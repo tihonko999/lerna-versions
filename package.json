@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "publish:versions": "sh ./scripts/release.sh"
+    "publish:versions:script": "sh ./scripts/release.sh",
+    "publish:versions:manual": "yarn lerna version"
   },
   "devDependencies": {
     "lerna": "^9.0.7",
