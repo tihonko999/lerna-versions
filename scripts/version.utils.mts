@@ -3,6 +3,7 @@ import type { PackageChangeItem } from './vertion.types.mts';
 
 export const extractChanges = (stdout: string[]) => {
   try {
+    // Первая строчка служебная - содержит имя файла и команду, ее исключаем
     const result = JSON.parse(stdout.slice(1).join('\n'));
     if (Array.isArray(result)) {
       return result as PackageChangeItem[];
