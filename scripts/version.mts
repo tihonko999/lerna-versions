@@ -1,3 +1,4 @@
+// https://blog.logrocket.com/running-commands-with-execa-in-node-js/
 import { execa } from 'execa';
 import { extractChanges, createTagName } from './version.utils.mts';
 
@@ -20,10 +21,11 @@ const main = async () => {
 
   // Делаем коммит
   await execa`git add .`;
-  await execa`git commit -m 'chore: publish versions'`;
+  const commitMessage = 'chore: publish versions';
+  await execa`git commit -m ${commitMessage}`;
 
   // Создаем один тег с именами всех пакетов и их новых версий
-  await execa`git tag -a ${tagName} -m '${tagName}'`;
+  await execa`git tag -a ${tagName} -m ${tagName}`;
 
   // Публикуем коммит и тег
   await execa`git push`;
