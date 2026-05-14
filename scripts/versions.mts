@@ -5,7 +5,7 @@
 // - RLS - получение jiraIssueId для сообщения коммита
 // https://blog.logrocket.com/running-commands-with-execa-in-node-js/
 import { execa } from 'execa';
-import { extractChanges, createTagName } from './version.utils.mts';
+import { extractChanges, createTagName } from './versions.utils.mts';
 
 const main = async () => {
   // TODO: отображать вывод лерны в консоль

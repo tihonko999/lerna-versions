@@ -1,5 +1,5 @@
 // import { execSync } from 'child_process';
-import type { PackageChangeItem } from './vertion.types.mts';
+import type { PackageChangeItem } from './versions.types.mts';
 
 export const extractChanges = (stdout: string[]) => {
   try {
