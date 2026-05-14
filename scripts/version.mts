@@ -2,6 +2,7 @@
 // - changelog сообщения - правка тегов в ссылке на репозиторий
 // - обработка возможных ошибок
 // - понятный вывод в консоль для оператора
+// - RLS - получение jiraIssueId для сообщения коммита
 // https://blog.logrocket.com/running-commands-with-execa-in-node-js/
 import { execa } from 'execa';
 import { extractChanges, createTagName } from './version.utils.mts';
