@@ -3,6 +3,8 @@
 // - обработка возможных ошибок
 // - понятный вывод в консоль для оператора
 // - RLS - получение jiraIssueId для сообщения коммита
+// - tag и commit одной командой - транзакция
+// - git push и git push origin tagName одной командой - тразакция
 // https://blog.logrocket.com/running-commands-with-execa-in-node-js/
 import { execa } from 'execa';
 import { extractChanges, createTagName } from './versions.utils.mts';
