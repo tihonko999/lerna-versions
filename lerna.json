@@ -10,7 +10,9 @@
       "gitTagVersion": false,
       "message": "chore: publish versions",
       "push": true,
+      "json": true,
       "yes": true,
+      "gitTagCommand": "git tag %s -m %s",
       "allowBranch": "main"
     }
   }
