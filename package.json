@@ -10,6 +10,7 @@
     "test": "yarn tsx ./scripts/version.mts"
   },
   "devDependencies": {
+    "execa": "^9.6.1",
     "@types/node": "^22.13.14",
     "lerna": "^9.0.7",
     "prettier": "^3.8.0",
