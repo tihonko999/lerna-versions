@@ -1,18 +1,20 @@
 // TODO
 // - changelog сообщения lerna version - правка тегов в ссылке на  репозиторий
 
-import { execa } from 'execa';
+// import { execa } from 'execa';
 import {
-  extractChanges,
   createTagName,
   getJiraIssueId,
   logError,
-  logSuccess,
   isOnMainBranch,
   hasUncommitedChanges,
   createCommitDescription,
   gitPullOriginMain,
   gitFetchTags,
+  gitCreateCommit,
+  gitCreateTag,
+  gitPush,
+  lernaVersion,
 } from './versions.utils.mts';
 import { MAIN_BRANCH_NAME } from './versions.constants.mts';
 
@@ -41,21 +43,7 @@ const main = async () => {
   }
 
   // Запускаем lerna version
-  const lernaVersionPromise = execa({
-    lines: true,
-  })`yarn lerna version
-      --conventional-commits
-      --conventional-graduate
-      --include-merged-tags
-      --no-git-tag-version
-      --json
-      --yes
-      --allow-branch ${MAIN_BRANCH_NAME}`;
-  // Направляем вывод lerna в консоль
-  lernaVersionPromise.stdout.pipe(process.stdout);
-  lernaVersionPromise.stderr.pipe(process.stderr);
-  const { stdout } = await lernaVersionPromise;
-  const changes = extractChanges(stdout);
+  const changes = await lernaVersion();
 
   // Нет изменений пакетов
   if (!changes || changes.length === 0) {
@@ -69,17 +57,13 @@ const main = async () => {
   const commitDescription = createCommitDescription(changes);
 
   // Делаем коммит
-  await execa`git add .`;
-  await execa`git commit -m ${commitTitle} -m ${commitDescription}`;
-  logSuccess(`Создан коммит: ${commitTitle}`);
+  await gitCreateCommit({ title: commitTitle, description: commitDescription });
 
   // Создаем один тег с именами всех пакетов и их новых версий
-  await execa`git tag -a ${tagName} -m ${tagName}`;
-  logSuccess(`Создан тег: ${tagName}`);
+  await gitCreateTag(tagName);
 
   // Публикуем коммит и тег вместе за одну транзакцию - всё или ничего
-  await execa`git push --atomic origin main ${tagName}`;
-  logSuccess(`Изменения отправлены в удаленный репозиторий, ветка: ${MAIN_BRANCH_NAME}`);
+  await gitPush(tagName);
 };
 
 main();

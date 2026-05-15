@@ -48,22 +48,68 @@ export const hasUncommitedChanges = async () => {
 
 export const gitPullOriginMain = async () => {
   logInfo(`Обновляем ветку ${MAIN_BRANCH_NAME}`);
-  const gitPullPromise = execa`git pull origin ${MAIN_BRANCH_NAME}`;
+  const promise = execa`git pull origin ${MAIN_BRANCH_NAME}`;
   // Направляем вывод git в консоль
-  gitPullPromise.stdout.pipe(process.stdout);
-  gitPullPromise.stderr.pipe(process.stderr);
-  await gitPullPromise;
+  promise.stdout.pipe(process.stdout);
+  promise.stderr.pipe(process.stderr);
+  await promise;
   logSuccess(`Обновили ветку ${MAIN_BRANCH_NAME}`);
 };
 
 export const gitFetchTags = async () => {
   logInfo('Обновляем теги');
-  const gitFetchPromise = execa`git fetch --tags`;
+  const promise = execa`git fetch --tags`;
   // Направляем вывод git в консоль
-  gitFetchPromise.stdout.pipe(process.stdout);
-  gitFetchPromise.stderr.pipe(process.stderr);
-  await gitFetchPromise;
+  promise.stdout.pipe(process.stdout);
+  promise.stderr.pipe(process.stderr);
+  await promise;
   logSuccess('Обновили теги');
+};
+
+export const lernaVersion = async () => {
+  const promise = execa({
+    lines: true,
+  })`yarn lerna version
+      --conventional-commits
+      --conventional-graduate
+      --include-merged-tags
+      --no-git-tag-version
+      --json
+      --yes
+      --allow-branch ${MAIN_BRANCH_NAME}`;
+  // Направляем вывод lerna в консоль
+  promise.stdout.pipe(process.stdout);
+  promise.stderr.pipe(process.stderr);
+
+  const { stdout } = await promise;
+  return extractChanges(stdout);
+};
+
+export const gitCreateCommit = async (params: { title: string; description: string }) => {
+  const { title, description } = params;
+  await execa`git add .`;
+
+  const promise = execa`git commit -m ${title} -m ${description}`;
+  promise.stdout.pipe(process.stdout);
+  promise.stderr.pipe(process.stderr);
+  await promise;
+  logSuccess(`Создан коммит: ${title}`);
+};
+
+export const gitCreateTag = async (tagName: string) => {
+  const promise = execa`git tag -a ${tagName} -m ${tagName}`;
+  promise.stdout.pipe(process.stdout);
+  promise.stderr.pipe(process.stderr);
+  await promise;
+  logSuccess(`Создан тег: ${tagName}`);
+};
+
+export const gitPush = async (tagName: string) => {
+  const promise = execa`git push --atomic origin ${MAIN_BRANCH_NAME} ${tagName}`;
+  promise.stdout.pipe(process.stdout);
+  promise.stderr.pipe(process.stderr);
+  await promise;
+  logSuccess(`Изменения отправлены в удаленный репозиторий, ветка: ${MAIN_BRANCH_NAME}`);
 };
 
 export const logError = (msg: string) => {
