@@ -1,6 +1,7 @@
 // import { execSync } from 'child_process';
 import { execa } from 'execa';
 import type { PackageChangeItem } from './versions.types.mts';
+import { MAIN_BRANCH_NAME, COLOR_SYMBOLS } from './versions.constants.mts';
 
 export const extractChanges = (stdout: string[]) => {
   try {
@@ -23,6 +24,15 @@ export const getJiraIssueId = async () => {
   const { stdout } = await execa`git log -1 --oneline`;
   const result = stdout.match(regEx);
   return result?.[0];
+};
+
+export const isOnMainBranch = async () => {
+  const { stdout } = await execa`git branch --show-current`;
+  return stdout === MAIN_BRANCH_NAME;
+};
+
+export const logError = (msg: string) => {
+  console.log(`${COLOR_SYMBOLS.FgRed}%s${COLOR_SYMBOLS.Reset}`, msg);
 };
 
 // [

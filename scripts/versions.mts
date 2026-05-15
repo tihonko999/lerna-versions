@@ -2,7 +2,6 @@
 // https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
 // TODO
-// - проверка - если не на main ветке - выйти
 // - проверка - если есть какие-либо активные git изменения - выходим
 // - обработка возможных ошибок
 // - добавить description к коммиту с версиями пакетов - с новой строки каждый
@@ -10,13 +9,26 @@
 // - changelog сообщения - правка тегов в ссылке на репозиторий
 
 import { execa } from 'execa';
-import { extractChanges, createTagName, getJiraIssueId } from './versions.utils.mts';
+import {
+  extractChanges,
+  createTagName,
+  getJiraIssueId,
+  logError,
+  isOnMainBranch,
+} from './versions.utils.mts';
+import { MAIN_BRANCH_NAME } from './versions.constants.mts';
 
 const main = async () => {
+  // Проверка текущей ветки
+  if (!(await isOnMainBranch())) {
+    logError(`Необходимо находиться на ветке: ${MAIN_BRANCH_NAME}`);
+    return;
+  }
+
   // Получаем jiraIssueId
   const jiraIssueId = await getJiraIssueId();
   if (!jiraIssueId) {
-    console.error('Не найден jiraIssueId в пространстве RLS');
+    logError('Не найден jiraIssueId в пространстве RLS');
     return;
   }
 
@@ -26,7 +38,7 @@ const main = async () => {
 
   // Нет изменений
   if (!changes) {
-    console.log('no changes');
+    logError('Нет изменений в пакетах с момента создания последнего git-тега');
     return;
   }
 
@@ -46,6 +58,8 @@ const main = async () => {
   // Публикуем коммит и тег вместе за одну транзакцию - всё или ничего
   await execa`git push --atomic origin main ${tagName}`;
 };
+
+const test = async () => {};
 
 main();
 // test();
