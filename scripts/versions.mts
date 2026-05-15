@@ -1,11 +1,15 @@
+// https://blog.logrocket.com/running-commands-with-execa-in-node-js/
+// https://git-scm.com/book/en/v2/Git-Basics-Tagging
+
 // TODO
+// - git push и git push origin tagName одной командой - тразакция
+// - RLS - получение jiraIssueId для сообщения коммита
 // - changelog сообщения - правка тегов в ссылке на репозиторий
 // - обработка возможных ошибок
 // - понятный вывод в консоль для оператора
-// - RLS - получение jiraIssueId для сообщения коммита
-// - tag и commit одной командой - транзакция
-// - git push и git push origin tagName одной командой - тразакция
-// https://blog.logrocket.com/running-commands-with-execa-in-node-js/
+// - добавить description к коммиту с версиями пакетов - с новой строки каждый
+// - проверка - если не на main ветке - выйти
+
 import { execa } from 'execa';
 import { extractChanges, createTagName } from './versions.utils.mts';
 
@@ -34,9 +38,8 @@ const main = async () => {
   // Создаем один тег с именами всех пакетов и их новых версий
   await execa`git tag -a ${tagName} -m ${tagName}`;
 
-  // Публикуем коммит и тег
-  await execa`git push`;
-  await execa`git push origin ${tagName}`;
+  // Публикуем коммит и тег вместе за одну транзакцию - всё или ничего
+  await execa`git push --atomic origin main ${tagName}`;
 };
 
 main();
