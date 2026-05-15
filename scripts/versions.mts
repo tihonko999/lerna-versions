@@ -2,16 +2,15 @@
 // https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
 // TODO
-// - git push и git push origin tagName одной командой - тразакция
 // - RLS - получение jiraIssueId для сообщения коммита
-// - changelog сообщения - правка тегов в ссылке на репозиторий
-// - обработка возможных ошибок
-// - понятный вывод в консоль для оператора
-// - добавить description к коммиту с версиями пакетов - с новой строки каждый
 // - проверка - если не на main ветке - выйти
+// - обработка возможных ошибок
+// - добавить description к коммиту с версиями пакетов - с новой строки каждый
+// - понятный вывод в консоль для оператора
+// - changelog сообщения - правка тегов в ссылке на репозиторий
 
 import { execa } from 'execa';
-import { extractChanges, createTagName } from './versions.utils.mts';
+import { extractChanges, createTagName, getJiraIssueId } from './versions.utils.mts';
 
 const main = async () => {
   // TODO: отображать вывод лерны в консоль
@@ -42,4 +41,6 @@ const main = async () => {
   await execa`git push --atomic origin main ${tagName}`;
 };
 
-main();
+getJiraIssueId();
+
+// main();
