@@ -31,6 +31,15 @@ export const isOnMainBranch = async () => {
   return stdout === MAIN_BRANCH_NAME;
 };
 
+export const hasUncommitedChanges = async () => {
+  try {
+    await execa`git diff-index --quiet HEAD`;
+    return false;
+  } catch {
+    return true;
+  }
+};
+
 export const logError = (msg: string) => {
   console.log(`${COLOR_SYMBOLS.FgRed}%s${COLOR_SYMBOLS.Reset}`, msg);
 };

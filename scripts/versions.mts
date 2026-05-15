@@ -15,6 +15,7 @@ import {
   getJiraIssueId,
   logError,
   isOnMainBranch,
+  hasUncommitedChanges,
 } from './versions.utils.mts';
 import { MAIN_BRANCH_NAME } from './versions.constants.mts';
 
@@ -22,6 +23,12 @@ const main = async () => {
   // Проверка текущей ветки
   if (!(await isOnMainBranch())) {
     logError(`Необходимо находиться на ветке: ${MAIN_BRANCH_NAME}`);
+    return;
+  }
+
+  // Проверка отсутствия git изменений
+  if (await hasUncommitedChanges()) {
+    logError('Присутствуют активные git-изменения. Необходимо сделать коммит');
     return;
   }
 
