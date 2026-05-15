@@ -1,4 +1,3 @@
-// import { execSync } from 'child_process';
 import { execa } from 'execa';
 import type { PackageChangeItem } from './versions.types.mts';
 import { MAIN_BRANCH_NAME, COLOR_SYMBOLS } from './versions.constants.mts';
@@ -49,19 +48,6 @@ export const logError = (msg: string) => {
   console.log(`${COLOR_SYMBOLS.FgRed}%s${COLOR_SYMBOLS.Reset}`, msg);
 };
 
-// [
-//   {
-//     name: 'footer',
-//     version: '0.1.18',
-//     private: true,
-//     location: '/Users/a.tikhonenko/Sites/lerna-versions/packages/footer',
-//     newVersion: '0.1.19'
-//   },
-//   {
-//     name: 'remixapp',
-//     version: '0.0.20',
-//     private: true,
-//     location: '/Users/a.tikhonenko/Sites/lerna-versions/packages/remixapp',
-//     newVersion: '0.0.21'
-//   }
-// ]
+export const logSuccess = (msg: string) => {
+  console.log(`${COLOR_SYMBOLS.FgGreen}%s${COLOR_SYMBOLS.Reset}`, msg);
+};

@@ -2,7 +2,6 @@
 // https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
 // TODO
-// - понятный вывод в консоль для оператора - TODO: отображать вывод лерны в консоль
 // - обработка возможных ошибок
 // - рефакторинг всего решения
 // - changelog сообщения - правка тегов в ссылке на репозиторий
@@ -13,6 +12,7 @@ import {
   createTagName,
   getJiraIssueId,
   logError,
+  logSuccess,
   isOnMainBranch,
   hasUncommitedChanges,
   createCommitDescription,
@@ -41,6 +41,7 @@ const main = async () => {
 
   // Запускаем lerna version
   const lernaVersionPromise = execa({ lines: true })`yarn lerna version`;
+  // Направляем вывод lerna в консоль
   lernaVersionPromise.stdout.pipe(process.stdout);
   lernaVersionPromise.stderr.pipe(process.stderr);
   const { stdout } = await lernaVersionPromise;
@@ -48,29 +49,30 @@ const main = async () => {
 
   // Нет изменений пакетов
   if (!changes) {
-    logError('Нет изменений в пакетах с момента создания последнего git-тега');
+    logError('Нет изменений в пакетах для версионирования');
     return;
   }
 
   // Есть изменения
   const tagName = createTagName(changes);
-  console.log('has changes', changes);
-  console.log('tagName', tagName);
-
-  // Делаем коммит
   const commitTitle = `chore: publish versions ${jiraIssueId}`;
   const commitDescription = createCommitDescription(changes);
+
+  // Делаем коммит
   await execa`git add .`;
   await execa`git commit -m ${commitTitle} -m ${commitDescription}`;
+  logSuccess(`Создан коммит: ${commitTitle}`);
 
   // Создаем один тег с именами всех пакетов и их новых версий
   await execa`git tag -a ${tagName} -m ${tagName}`;
+  logSuccess(`Создан тег: ${tagName}`);
 
   // Публикуем коммит и тег вместе за одну транзакцию - всё или ничего
   await execa`git push --atomic origin main ${tagName}`;
+  logSuccess(`Изменения отправлены в удаленный репозиторий, ветка: ${MAIN_BRANCH_NAME}`);
 };
 
-const test = async () => {};
+// const test = async () => {};
 
 main();
 // test();
