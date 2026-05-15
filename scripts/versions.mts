@@ -1,5 +1,5 @@
 // TODO
-// - changelog сообщения lerna version - правка тегов в ссылке на репозиторий
+// - changelog сообщения lerna version - правка тегов в ссылке на  репозиторий
 
 import { execa } from 'execa';
 import {
