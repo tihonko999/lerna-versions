@@ -2,9 +2,9 @@
 // https://git-scm.com/book/en/v2/Git-Basics-Tagging
 
 // TODO
-// - добавить description к коммиту с версиями пакетов - с новой строки каждый
-// - обработка возможных ошибок
 // - понятный вывод в консоль для оператора - TODO: отображать вывод лерны в консоль
+// - обработка возможных ошибок
+// - рефакторинг всего решения
 // - changelog сообщения - правка тегов в ссылке на репозиторий
 
 import { execa } from 'execa';
@@ -40,7 +40,10 @@ const main = async () => {
   }
 
   // Запускаем lerna version
-  const { stdout } = await execa({ lines: true })`yarn lerna version`;
+  const lernaVersionPromise = execa({ lines: true })`yarn lerna version`;
+  lernaVersionPromise.stdout.pipe(process.stdout);
+  lernaVersionPromise.stderr.pipe(process.stderr);
+  const { stdout } = await lernaVersionPromise;
   const changes = extractChanges(stdout);
 
   // Нет изменений пакетов
