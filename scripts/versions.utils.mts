@@ -22,7 +22,7 @@ export const getJiraIssueId = async () => {
   const regEx = /RLS+-[0-9]+/;
   const { stdout } = await execa`git log -1 --oneline`;
   const result = stdout.match(regEx);
-  console.log(result);
+  return result?.[0];
 };
 
 // [

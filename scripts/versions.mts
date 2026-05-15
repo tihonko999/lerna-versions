@@ -4,16 +4,23 @@
 // TODO
 // - RLS - получение jiraIssueId для сообщения коммита
 // - проверка - если не на main ветке - выйти
+// - проверка - если есть какие-либо активные git изменения - выходим
 // - обработка возможных ошибок
 // - добавить description к коммиту с версиями пакетов - с новой строки каждый
-// - понятный вывод в консоль для оператора
+// - понятный вывод в консоль для оператора - TODO: отображать вывод лерны в консоль
 // - changelog сообщения - правка тегов в ссылке на репозиторий
 
 import { execa } from 'execa';
 import { extractChanges, createTagName, getJiraIssueId } from './versions.utils.mts';
 
 const main = async () => {
-  // TODO: отображать вывод лерны в консоль
+  // Получаем jiraIssueId
+  const jiraIssueId = await getJiraIssueId();
+  if (!jiraIssueId) {
+    console.error('Не найден jiraIssueId в пространстве RLS');
+    return;
+  }
+
   // Запускаем lerna version
   const { stdout } = await execa({ lines: true })`yarn lerna version`;
   const changes = extractChanges(stdout);
@@ -30,8 +37,8 @@ const main = async () => {
   console.log('tagName', tagName);
 
   // Делаем коммит
+  const commitMessage = `chore: publish versions ${jiraIssueId}`;
   await execa`git add .`;
-  const commitMessage = 'chore: publish versions';
   await execa`git commit -m ${commitMessage}`;
 
   // Создаем один тег с именами всех пакетов и их новых версий
@@ -41,6 +48,5 @@ const main = async () => {
   await execa`git push --atomic origin main ${tagName}`;
 };
 
-getJiraIssueId();
-
-// main();
+main();
+// test();
