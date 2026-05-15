@@ -48,17 +48,17 @@ export const hasUncommitedChanges = async () => {
 
 export const gitPullOriginMain = async () => {
   logInfo(`Обновляем ветку ${MAIN_BRANCH_NAME}`);
-  const gitPullPromise = await execa(`git pull origin ${MAIN_BRANCH_NAME}`);
+  const gitPullPromise = execa`git pull origin ${MAIN_BRANCH_NAME}`;
   // Направляем вывод git в консоль
-  // gitPullPromise.stdout.pipe(process.stdout);
-  // gitPullPromise.stderr.pipe(process.stderr);
-  // await gitPullPromise;
+  gitPullPromise.stdout.pipe(process.stdout);
+  gitPullPromise.stderr.pipe(process.stderr);
+  await gitPullPromise;
   logSuccess(`Обновили ветку ${MAIN_BRANCH_NAME}`);
 };
 
 export const gitFetchTags = async () => {
   logInfo('Обновляем теги');
-  const gitFetchPromise = execa('git fetch --tags');
+  const gitFetchPromise = execa`git fetch --tags`;
   // Направляем вывод git в консоль
   gitFetchPromise.stdout.pipe(process.stdout);
   gitFetchPromise.stderr.pipe(process.stderr);
