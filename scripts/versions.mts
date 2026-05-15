@@ -1,7 +1,5 @@
 // TODO
 // - changelog сообщения lerna version - правка тегов в ссылке на  репозиторий
-// - флаги lerna перенести сюда - не надеятся на lerna.json
-// - перед созданием коммита сделать git pull и также получить все свежие теги с удаленного репозитория
 
 import { execa } from 'execa';
 import {
@@ -13,6 +11,8 @@ import {
   isOnMainBranch,
   hasUncommitedChanges,
   createCommitDescription,
+  gitPullOriginMain,
+  gitFetchTags,
 } from './versions.utils.mts';
 import { MAIN_BRANCH_NAME } from './versions.constants.mts';
 
@@ -28,6 +28,10 @@ const main = async () => {
     logError('Присутствуют активные git-изменения. Необходимо сделать коммит');
     return;
   }
+
+  // Обновляем main ветку и теги
+  await gitPullOriginMain();
+  await gitFetchTags();
 
   // jiraIssueId для последнего коммита
   const jiraIssueId = await getJiraIssueId();
