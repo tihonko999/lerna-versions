@@ -14,9 +14,17 @@ export const extractChanges = (stdout: string[]) => {
   return undefined;
 };
 
+//  - footer@0.1.7
+//  - remixapp@0.0.9
+
 export const createTagName = (changes: PackageChangeItem[]) => {
   const tagName = changes.map((el) => [el.name, el.newVersion].join('@')).join('_');
   return tagName;
+};
+
+export const createCommitDescription = (changes: PackageChangeItem[]) => {
+  const commitDescription = changes.map((el) => ` - ${el.name}@${el.newVersion}`).join('\n');
+  return commitDescription;
 };
 
 export const getJiraIssueId = async () => {
