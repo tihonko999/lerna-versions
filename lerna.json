@@ -12,7 +12,6 @@
       "push": true,
       "json": true,
       "yes": true,
-      "gitTagCommand": "git tag %s -m %s",
       "allowBranch": "main"
     }
   }

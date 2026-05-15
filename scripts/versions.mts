@@ -1,5 +1,7 @@
 // TODO
 // - changelog сообщения lerna version - правка тегов в ссылке на  репозиторий
+// - флаги lerna перенести сюда - не надеятся на lerna.json
+// - перед созданием коммита сделать git pull и также получить все свежие теги с удаленного репозитория
 
 import { execa } from 'execa';
 import {
@@ -35,7 +37,16 @@ const main = async () => {
   }
 
   // Запускаем lerna version
-  const lernaVersionPromise = execa({ lines: true })`yarn lerna version`;
+  const lernaVersionPromise = execa({
+    lines: true,
+  })`yarn lerna version
+      --conventional-commits
+      --conventional-graduate
+      --include-merged-tags
+      --no-git-tag-version
+      --json
+      --yes
+      --allow-branch ${MAIN_BRANCH_NAME}`;
   // Направляем вывод lerna в консоль
   lernaVersionPromise.stdout.pipe(process.stdout);
   lernaVersionPromise.stderr.pipe(process.stderr);
