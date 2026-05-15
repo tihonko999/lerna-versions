@@ -1,4 +1,5 @@
 // import { execSync } from 'child_process';
+import { execa } from 'execa';
 import type { PackageChangeItem } from './versions.types.mts';
 
 export const extractChanges = (stdout: string[]) => {
@@ -15,6 +16,13 @@ export const extractChanges = (stdout: string[]) => {
 export const createTagName = (changes: PackageChangeItem[]) => {
   const tagName = changes.map((el) => [el.name, el.newVersion].join('@')).join('_');
   return tagName;
+};
+
+export const getJiraIssueId = async () => {
+  const regEx = /RLS+-[0-9]+/;
+  const { stdout } = await execa`git log -1 --oneline`;
+  const result = stdout.match(regEx);
+  console.log(result);
 };
 
 // [
