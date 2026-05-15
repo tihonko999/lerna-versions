@@ -2,6 +2,8 @@ import { execa } from 'execa';
 import type { PackageChangeItem } from './versions.types.mts';
 import { MAIN_BRANCH_NAME, COLOR_SYMBOLS } from './versions.constants.mts';
 
+// stdout - вывод lerna с флагом --json
+// https://github.com/lerna/lerna/tree/main/libs/commands/version#--json
 export const extractChanges = (stdout: string[]) => {
   try {
     // Первая строчка служебная - содержит имя файла и команду, ее исключаем

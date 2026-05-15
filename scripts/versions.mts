@@ -1,10 +1,5 @@
-// https://blog.logrocket.com/running-commands-with-execa-in-node-js/
-// https://git-scm.com/book/en/v2/Git-Basics-Tagging
-
 // TODO
-// - обработка возможных ошибок
-// - рефакторинг всего решения
-// - changelog сообщения - правка тегов в ссылке на репозиторий
+// - changelog сообщения lerna version - правка тегов в ссылке на репозиторий
 
 import { execa } from 'execa';
 import {
@@ -26,13 +21,13 @@ const main = async () => {
     return;
   }
 
-  // Проверка отсутствия git изменений
+  // Проверка, что нет изменений не оформленных в коммит
   if (await hasUncommitedChanges()) {
     logError('Присутствуют активные git-изменения. Необходимо сделать коммит');
     return;
   }
 
-  // Получаем jiraIssueId
+  // jiraIssueId для последнего коммита
   const jiraIssueId = await getJiraIssueId();
   if (!jiraIssueId) {
     logError('Не найден jiraIssueId в пространстве RLS');
@@ -48,7 +43,7 @@ const main = async () => {
   const changes = extractChanges(stdout);
 
   // Нет изменений пакетов
-  if (!changes) {
+  if (!changes || changes.length === 0) {
     logError('Нет изменений в пакетах для версионирования');
     return;
   }
@@ -72,7 +67,4 @@ const main = async () => {
   logSuccess(`Изменения отправлены в удаленный репозиторий, ветка: ${MAIN_BRANCH_NAME}`);
 };
 
-// const test = async () => {};
-
 main();
-// test();
