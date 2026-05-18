@@ -3,7 +3,7 @@
 // - добавить шаг удаления всех локальных тегов и подтягивания всех удаленных тегов
 // - в enterprise - проверить что в yarn.lock - есть ли там версии пакетов, надо ли их там тоже поднимать после lerna version перед коммитом?
 
-// import { execa } from 'execa';
+import { execa } from 'execa';
 import {
   createTagName,
   getJiraIssueId,
@@ -57,6 +57,9 @@ const main = async () => {
   const tagName = createTagName(changes);
   const commitTitle = `chore: publish versions ${jiraIssueId}`;
   const commitDescription = createCommitDescription(changes);
+
+  // yarn install чтобы обновить yarn.lock
+  await execa(`yarn install`);
 
   // Делаем коммит
   await gitCreateCommit({ title: commitTitle, description: commitDescription });
