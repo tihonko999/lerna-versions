@@ -4,10 +4,9 @@ import { MAIN_BRANCH_NAME, COLOR_SYMBOLS } from './versions.constants.mts';
 
 // stdout - вывод lerna с флагом --json
 // https://github.com/lerna/lerna/tree/main/libs/commands/version#--json
-export const extractChanges = (stdout: string[]) => {
+export const extractChanges = (stdout: string) => {
   try {
-    // Первая строчка служебная - содержит имя файла и команду, ее исключаем
-    const result = JSON.parse(stdout.slice(1).join('\n'));
+    const result = JSON.parse(stdout);
     if (Array.isArray(result)) {
       return result as PackageChangeItem[];
     }
@@ -67,9 +66,8 @@ export const gitFetchTags = async () => {
 };
 
 export const lernaVersion = async () => {
-  const promise = execa({
-    lines: true,
-  })`yarn lerna version
+  const promise = execa`
+    yarn lerna version
       --conventional-commits
       --conventional-graduate
       --include-merged-tags
