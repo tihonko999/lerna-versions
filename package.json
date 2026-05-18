@@ -10,11 +10,12 @@
     "publish:versions:execa": "yarn tsx ./scripts/versions.mts"
   },
   "devDependencies": {
-    "execa": "^9.6.1",
     "@types/node": "^22.13.14",
+    "execa": "^9.6.1",
     "lerna": "^9.0.7",
     "prettier": "^3.8.0",
     "tsx": "^4.21.1",
     "typescript": "^6.0.3"
-  }
+  },
+  "packageManager": "yarn@4.9.4"
 }
