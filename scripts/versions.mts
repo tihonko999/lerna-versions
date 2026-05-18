@@ -59,7 +59,7 @@ const main = async () => {
   const commitDescription = createCommitDescription(changes);
 
   // yarn install чтобы обновить yarn.lock
-  await execa(`yarn install`);
+  await execa`yarn install`;
 
   // Делаем коммит
   await gitCreateCommit({ title: commitTitle, description: commitDescription });
