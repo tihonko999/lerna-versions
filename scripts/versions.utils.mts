@@ -37,12 +37,8 @@ export const isOnMainBranch = async () => {
 };
 
 export const hasUncommitedChanges = async () => {
-  try {
-    await execa`git diff-index --quiet HEAD`;
-    return false;
-  } catch {
-    return true;
-  }
+  const { stdout } = await execa`git status --porcelain`;
+  return Boolean(stdout);
 };
 
 export const gitPullOriginMain = async () => {
