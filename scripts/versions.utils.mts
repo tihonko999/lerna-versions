@@ -38,7 +38,7 @@ export const isOnMainBranch = async () => {
 
 export const hasUncommitedChanges = async () => {
   const { stdout } = await execa`git status --porcelain`;
-  return Boolean(stdout);
+  return Boolean(stdout.trim());
 };
 
 export const gitPullOriginMain = async () => {
