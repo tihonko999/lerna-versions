@@ -4,6 +4,10 @@ import { MAIN_BRANCH_NAME, COLOR_SYMBOLS, RELEASE_TYPES } from './versions.const
 import semver from 'semver';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const getHighestReleaseType = (changes: PackageChangeItem[]) => {
   const changeTypes = changes.map((el) => {
