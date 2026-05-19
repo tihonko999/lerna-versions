@@ -63,8 +63,8 @@ const main = async () => {
 
   // Обновляем версию корневого package.json
   const newVersion = updateRootVersion(releaseType);
-  // const newVersionName = 'this_is_tag_prefix' + newVersion + 'this_is_tag_postfix';
-  const newVersionName = 'v' + newVersion;
+  const newVersionName = 'this_is_tag_prefix' + newVersion + 'this_is_tag_postfix';
+  // const newVersionName = 'v' + newVersion;
   const commitTitle = `chore: publish versions: ${newVersionName} issue: ${jiraIssueId}`;
   const commitDescription = createCommitDescription(changes);
 
