@@ -20,7 +20,7 @@ export const getHighestReleaseType = (changes: PackageChangeItem[]) => {
 };
 
 export const updateRootVersion = (releaseType: semver.ReleaseType) => {
-  const filePath = path.resolve('../package.json');
+  const filePath = path.resolve(__dirname, '../package.json');
   const packageData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
   if (!packageData.version) {
     throw new Error('в package.json отсутствует поле version');
