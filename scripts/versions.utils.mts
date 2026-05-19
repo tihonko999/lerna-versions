@@ -85,7 +85,9 @@ export const gitPullOriginMain = async () => {
 
 export const gitFetchTags = async () => {
   logInfo('Обновляем теги');
-  await execa('git', ['tag', '-d', '$(git tag -l)'], { shell: true });
+  // await execa('git', ['tag', '-d', '$(git tag -l)'], { shell: true });
+  await execa(`git tag -d $(git tag -l)`, { shell: true });
+
   await execa`git fetch --tags --quiet`;
   logSuccess('Обновили теги');
 };
