@@ -102,7 +102,6 @@ export const lernaVersion = async () => {
       --no-git-tag-version
       --json
       --yes
-      --no-changelog
       --allow-branch ${MAIN_BRANCH_NAME}`;
   // Направляем вывод lerna в консоль
   promise.stdout.pipe(process.stdout);
