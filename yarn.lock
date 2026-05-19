@@ -5,25 +5,6 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"@app/footer@workspace:^5.0.0, @app/footer@workspace:packages/footer":
-  version: 0.0.0-use.local
-  resolution: "@app/footer@workspace:packages/footer"
-  dependencies:
-    "@testing-library/react": "npm:13.3.0"
-    "@types/jest": "npm:^27.0.3"
-    "@types/react": "npm:^17.0.14"
-    jest: "npm:^27.4.3"
-    react: "npm:18.1.0"
-    react-dom: "npm:18.1.0"
-    rimraf: "npm:^3.0.2"
-    rollup: "npm:^2.60.2"
-    rollup-plugin-typescript2: "npm:^0.31.1"
-    ts-jest: "npm:^27.1.1"
-    tslib: "npm:^2.3.1"
-    typescript: "npm:^4.5.2"
-  languageName: unknown
-  linkType: soft
-
 "@app/header@workspace:^1.2.6, @app/header@workspace:packages/header":
   version: 0.0.0-use.local
   resolution: "@app/header@workspace:packages/header"
@@ -47,7 +28,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/remixapp@workspace:packages/remixapp"
   dependencies:
-    "@app/footer": "workspace:^5.0.0"
     "@app/header": "workspace:^1.2.6"
     "@remix-run/dev": "npm:^1.5.1"
     "@remix-run/eslint-config": "npm:^1.5.1"
