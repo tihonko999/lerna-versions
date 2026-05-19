@@ -1,11 +1,12 @@
 // TODO
-// - changelog сообщения lerna version - правка тегов в ссылке на  репозиторий
+// - обновление версии в корневом package.json
+// - переделать имя тега и сообщение коммита (issue, version)
 // - добавить шаг удаления всех локальных тегов и подтягивания всех удаленных тегов
+// - changelog сообщения lerna version - правка тегов в ссылке на  репозиторий
 // - ?добавить ли явный вызов yarn install - yarn.lock и так обновится в текущей реализации
 
 // import { execa } from 'execa';
 import {
-  createTagName,
   getJiraIssueId,
   logError,
   isOnMainBranch,
@@ -17,6 +18,8 @@ import {
   gitCreateTag,
   gitPush,
   lernaVersion,
+  getHighestReleaseType,
+  updateRootVersion,
 } from './versions.utils.mts';
 import { MAIN_BRANCH_NAME } from './versions.constants.mts';
 
@@ -53,9 +56,17 @@ const main = async () => {
     return;
   }
 
-  // Есть изменения
-  const tagName = createTagName(changes);
-  const commitTitle = `chore: publish versions ${jiraIssueId}`;
+  // Определяем тип общего релиза
+  const releaseType = getHighestReleaseType(changes);
+  if (!releaseType) {
+    logError('Отсутствуют изменения в пакетах для версионирования');
+    return;
+  }
+
+  // Обновляем версию корневого package.json
+  const newVersion = updateRootVersion(releaseType);
+  const newVersionName = 'v' + newVersion;
+  const commitTitle = `chore: publish versions: ${newVersionName} issue: ${jiraIssueId}`;
   const commitDescription = createCommitDescription(changes);
 
   // yarn install чтобы обновить внутренние зависимости в yarn.lock
@@ -65,10 +76,10 @@ const main = async () => {
   await gitCreateCommit({ title: commitTitle, description: commitDescription });
 
   // Создаем один тег с именами всех пакетов и их новых версий
-  await gitCreateTag(tagName);
+  await gitCreateTag(newVersionName);
 
   // Публикуем коммит и тег вместе за одну транзакцию - всё или ничего
-  await gitPush(tagName);
+  await gitPush(newVersionName);
 };
 
 main();

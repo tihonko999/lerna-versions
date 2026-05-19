@@ -1,6 +1,39 @@
 import { execa } from 'execa';
 import type { PackageChangeItem } from './versions.types.mts';
-import { MAIN_BRANCH_NAME, COLOR_SYMBOLS } from './versions.constants.mts';
+import { MAIN_BRANCH_NAME, COLOR_SYMBOLS, RELEASE_TYPES } from './versions.constants.mts';
+import semver from 'semver';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export const getHighestReleaseType = (changes: PackageChangeItem[]) => {
+  const changeTypes = changes.map((el) => {
+    return semver.diff(el.version, el.newVersion);
+  });
+
+  for (const releaseType of RELEASE_TYPES) {
+    if (changeTypes.some((el) => el === releaseType)) {
+      return releaseType;
+    }
+  }
+
+  return null;
+};
+
+export const updateRootVersion = (releaseType: semver.ReleaseType) => {
+  const filePath = path.resolve('../package.json');
+  const packageData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  if (!packageData.version) {
+    throw new Error('в package.json отсутствует поле version');
+  }
+  const newVersion = semver.inc(packageData.version, releaseType);
+  if (!newVersion) {
+    throw new Error('Не удалось определить версию нового релиза');
+  }
+  packageData.version = newVersion;
+  fs.writeFileSync(filePath, JSON.stringify(packageData, null, 2), 'utf8');
+
+  return newVersion;
+};
 
 // stdout - вывод lerna с флагом --json
 // https://github.com/lerna/lerna/tree/main/libs/commands/version#--json
@@ -12,11 +45,6 @@ export const extractChanges = (stdout: string) => {
     }
   } catch {}
   return undefined;
-};
-
-export const createTagName = (changes: PackageChangeItem[]) => {
-  const tagName = changes.map((el) => [el.name, el.newVersion].join('@')).join('_');
-  return tagName;
 };
 
 export const createCommitDescription = (changes: PackageChangeItem[]) => {
