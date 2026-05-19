@@ -73,7 +73,6 @@ const main = async () => {
   // await execa`yarn install`;
 
   // Делаем коммит
-  return;
   await gitCreateCommit({ title: commitTitle, description: commitDescription });
 
   // Создаем один тег с именами всех пакетов и их новых версий
