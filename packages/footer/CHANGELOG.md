@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/tihonko999/lerna-versions/compare/@app/footer@0.1.23_@app/remixapp@0.0.27...@app/footer@0.2.0) (2026-05-19)
+
+
+### Features
+
+* [RLS-22] footer text ([692e8f1](https://github.com/tihonko999/lerna-versions/commit/692e8f1b2f48087f5a4735d31e48e59912912bac))
+
+
+
+## 1.0.1 (2026-05-19)
+
+
+
+
+
 ## [0.1.24](https://github.com/tihonko999/lerna-versions/compare/@app/footer@0.1.23_@app/remixapp@0.0.27...@app/footer@0.1.24) (2026-05-19)
 
 **Note:** Version bump only for package @app/footer
