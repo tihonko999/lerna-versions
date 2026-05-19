@@ -34,7 +34,7 @@ export const updateRootVersion = (releaseType: semver.ReleaseType) => {
     throw new Error('Не удалось определить версию нового релиза');
   }
   packageData.version = newVersion;
-  fs.writeFileSync(filePath, JSON.stringify(packageData, null, 2), 'utf8');
+  fs.writeFileSync(filePath, JSON.stringify(packageData, null, 2) + '\n', 'utf8');
 
   return newVersion;
 };
