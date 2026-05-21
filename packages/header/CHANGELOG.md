@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.6.0 (2026-05-21)
+
+
+### Bug Fixes
+
+* RLS-1 text ([22f136d](https://github.com/tihonko999/lerna-versions/commit/22f136dabd2c811404a7e376d579d66f64854a30))
+* RLS-1 text ([7d06b8b](https://github.com/tihonko999/lerna-versions/commit/7d06b8b6bff8573fad68149af1743aa34b80de36))
+
+
+### Features
+
+* RLS-1 header ([d7052ce](https://github.com/tihonko999/lerna-versions/commit/d7052ce59d275c2df3054cc036b38b6c73e26335))
+
+
+
+
+
 # 1.5.0 (2026-05-21)
 
 
