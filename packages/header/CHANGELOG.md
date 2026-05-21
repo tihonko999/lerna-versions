@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.3.0 (2026-05-21)
+
+
+### Features
+
+* RLS-1 header ([d7052ce](https://github.com/tihonko999/lerna-versions/commit/d7052ce59d275c2df3054cc036b38b6c73e26335))
+
+
+
+
+
 ## 1.2.21 (2026-05-21)
 
 **Note:** Version bump only for package @app/header
