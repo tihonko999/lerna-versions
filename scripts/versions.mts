@@ -1,8 +1,11 @@
 // TODO
+// - лерна хватает все изменения с самого начала а не только произошедшие с последнего тега
+// https://stackoverflow.com/questions/76918726/lerna-problem-using-conventional-commits-with-an-existing-project
+
+// TODO
 // - как называть новые теги
 // - плотное тестирование
 // - changelog сообщения lerna version - правка тегов в ссылке на репозиторий
-// - ?Попробовать git tag -a -m <version> - убрать tagName после a
 // - ?добавить ли явный вызов yarn install - yarn.lock и так обновится в текущей реализации
 // https://lerna.js.org/docs/troubleshooting#publish-does-not-detect-manually-created-tags-in-fixed-mode-with-githubgithub-enterprise
 

@@ -97,14 +97,24 @@ export const gitFetchTags = async () => {
 };
 
 export const lernaVersion = async () => {
+  // const promise = execa`
+  //   yarn lerna version
+  //     --conventional-commits
+  //     --conventional-graduate
+  //     --include-merged-tags
+  //     --no-git-tag-version
+  //     --json
+  //     --yes
+  //     --allow-branch ${MAIN_BRANCH_NAME}`;
   const promise = execa`
-    yarn lerna version
+    yarn lerna publish
       --conventional-commits
       --conventional-graduate
       --include-merged-tags
       --no-git-tag-version
       --json
       --yes
+      --skip-npm
       --allow-branch ${MAIN_BRANCH_NAME}`;
   // Направляем вывод lerna в консоль
   promise.stdout.pipe(process.stdout);
