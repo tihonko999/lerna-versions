@@ -85,10 +85,14 @@ export const gitPullOriginMain = async () => {
 
 export const gitFetchTags = async () => {
   logInfo('Обновляем теги');
-  // await execa('git', ['tag', '-d', '$(git tag -l)'], { shell: true });
+  // Удаляем все локальные теги
   await execa(`git tag -d $(git tag -l)`, { shell: true });
-
+  // Подтягиваем все удаленные теги
   await execa`git fetch --tags --quiet`;
+
+  // Оставляем только последний (самый свежий) тег, чтобы lerna не путалась в прошлых тегах
+  const { stdout: allTags } = await execa({ lines: true })`git tag -l --sort=-creatordate`;
+  await execa('git', ['tag', '-d', ...allTags.slice(1)]);
   logSuccess('Обновили теги');
 };
 

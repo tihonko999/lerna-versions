@@ -7,7 +7,8 @@
   ],
   "scripts": {
     "publish:versions:manual": "yarn lerna version",
-    "publish:versions": "yarn ts-node ./scripts/versions.mts"
+    "publish:versions": "yarn ts-node ./scripts/versions.mts",
+    "v": "yarn ts-node ./scripts/versions.mts"
   },
   "devDependencies": {
     "@types/node": "^20.19.5",

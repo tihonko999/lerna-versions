@@ -1,7 +1,15 @@
 // TODO
-// - changelog сообщения lerna version - правка тегов в ссылке на репозиторий
-// - ?добавить ли явный вызов yarn install - yarn.lock и так обновится в текущей реализации
+// - как называть новые теги
 // - плотное тестирование
+// - changelog сообщения lerna version - правка тегов в ссылке на репозиторий
+// - ?Попробовать git tag -a -m <version> - убрать tagName после a
+// - ?добавить ли явный вызов yarn install - yarn.lock и так обновится в текущей реализации
+// https://lerna.js.org/docs/troubleshooting#publish-does-not-detect-manually-created-tags-in-fixed-mode-with-githubgithub-enterprise
+
+// TODO если не будем удалять все теги кроме последнего
+// - какие теги лерна находит в independant режиме
+// - проверить поведение лерны если будут теги вида header@1.1.0
+// - что делать со старыми тегами
 
 // import { execa } from 'execa';
 import {
