@@ -1,16 +1,4 @@
-import { type ReleaseType } from 'semver';
-
-// Типы semver релизов по старшинству
-export const RELEASE_TYPES: ReleaseType[] = [
-  'major',
-  'minor',
-  'patch',
-  'premajor',
-  'preminor',
-  'prepatch',
-  'prerelease',
-];
-
+// TODO: переименовть в master
 export const MAIN_BRANCH_NAME = 'main';
 
 // https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
