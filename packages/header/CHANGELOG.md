@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.2](https://github.com/tihonko999/lerna-versions/compare/@app/header@1.7.1...@app/header@1.7.2) (2026-08-31)
+
+### Bug Fixes
+
+- header readme ([c7b2596](https://github.com/tihonko999/lerna-versions/commit/c7b259621ebb6c1a5b3ae16d9591bec91f8e3f17))
+
 ## [1.7.1](https://github.com/tihonko999/lerna-versions/compare/@app/header@1.7.0...@app/header@1.7.1) (2026-08-31)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.59](https://github.com/tihonko999/lerna-versions/compare/@app/remixapp@1.0.58...@app/remixapp@1.0.59) (2026-08-31)
+
+### Bug Fixes
+
+- remix readme ([6c1a2dc](https://github.com/tihonko999/lerna-versions/commit/6c1a2dc4f6d9094aaf089c6af9b4126bbf85ad33))
+
 ## [1.0.58](https://github.com/tihonko999/lerna-versions/compare/@app/remixapp@1.0.57...@app/remixapp@1.0.58) (2026-08-31)
 
 ### Bug Fixes
